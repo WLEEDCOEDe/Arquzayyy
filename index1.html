@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> المهام الارقوازي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .animate-bounce { animation: bounce 2s infinite; }
+        .animate-spin { animation: spin 3s linear infinite; }
+        .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-100 to-pink-200 min-h-screen transition-colors duration-300">
+    <!-- Stars -->
+    <div style="position: fixed; top: 80px; left: 40px; font-size: 3rem; opacity: 0.3;" class="animate-pulse">⭐</div>
+    <div style="position: fixed; top: 240px; left: 80px; font-size: 2.5rem; opacity: 0.25; animation-delay: 0.5s;" class="animate-pulse">✨</div>
+    <div style="position: fixed; bottom: 160px; left: 64px; font-size: 2rem; opacity: 0.2; animation-delay: 1s;" class="animate-pulse">🌟</div>
+    <div style="position: fixed; top: 128px; right: 40px; font-size: 3rem; opacity: 0.3; animation-delay: 0.3s;" class="animate-pulse">⭐</div>
+    <div style="position: fixed; bottom: 240px; right: 80px; font-size: 2.5rem; opacity: 0.25; animation-delay: 1.2s;" class="animate-pulse">✨</div>
+    <div style="position: fixed; top: 320px; right: 128px; font-size: 2rem; opacity: 0.2; animation-delay: 0.8s;" class="animate-pulse">🌟</div>
+    <div style="position: fixed; bottom: 80px; right: 40px; font-size: 4rem; opacity: 0.2; animation-delay: 1s;" class="animate-bounce">💖</div>
+    <div style="position: fixed; top: 160px; left: 50%; font-size: 2.5rem; opacity: 0.2; animation-delay: 0.5s;" class="animate-bounce">🌸</div>
+
+    <div id="confettiContainer"></div>
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-8">
+        <div class="text-center mb-8 relative">
+            <button id="darkModeBtn" class="absolute right-0 top-0 p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-transform shadow-lg">
+                ☀️
+            </button>
+
+            <!-- Hello Kitty -->
+            <div class="mb-6 relative inline-block">
+                <div style="position: absolute; top: -8px; right: -8px; font-size: 2.5rem;" class="animate-spin">✨</div>
+                <div style="position: absolute; top: -8px; left: -8px; font-size: 2.5rem; animation-direction: reverse;" class="animate-spin">⭐</div>
+                <div class="bg-white/40 backdrop-blur-sm rounded-full p-6 shadow-2xl border-4 border-pink-300" style="animation: bounce 2s infinite;">
+                    <svg width="120" height="120" viewBox="0 0 120 120">
+                        <ellipse cx="60" cy="65" rx="45" ry="42" fill="#FFFFFF"/>
+                        <ellipse cx="30" cy="30" rx="18" ry="22" fill="#FFFFFF"/>
+                        <ellipse cx="30" cy="32" rx="12" ry="15" fill="#FFB6C1"/>
+                        <ellipse cx="90" cy="30" rx="18" ry="22" fill="#FFFFFF"/>
+                        <ellipse cx="90" cy="32" rx="12" ry="15" fill="#FFB6C1"/>
+                        <ellipse cx="85" cy="25" rx="15" ry="12" fill="#FF1493"/>
+                        <ellipse cx="105" cy="25" rx="15" ry="12" fill="#FF1493"/>
+                        <circle cx="95" cy="25" r="8" fill="#FF69B4"/>
+                        <circle cx="95" cy="25" r="4" fill="#FFB6C1"/>
+                        <ellipse cx="45" cy="60" rx="4" ry="8" fill="#000000"/>
+                        <ellipse cx="75" cy="60" rx="4" ry="8" fill="#000000"/>
+                        <ellipse cx="60" cy="70" rx="3" ry="4" fill="#FFD700"/>
+                        <line x1="25" y1="68" x2="42" y2="68" stroke="#000000" stroke-width="1.5"/>
+                        <line x1="25" y1="73" x2="42" y2="71" stroke="#000000" stroke-width="1.5"/>
+                        <line x1="25" y1="78" x2="42" y2="75" stroke="#000000" stroke-width="1.5"/>
+                        <line x1="78" y1="68" x2="95" y2="68" stroke="#000000" stroke-width="1.5"/>
+                        <line x1="78" y1="71" x2="95" y2="73" stroke="#000000" stroke-width="1.5"/>
+                        <line x1="78" y1="75" x2="95" y2="78" stroke="#000000" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div style="position: absolute; bottom: -8px; right: -8px; font-size: 2.5rem;" class="animate-pulse">💖</div>
+                <div style="position: absolute; bottom: -8px; left: -8px; font-size: 2.5rem; animation-delay: 0.5s;" class="animate-pulse">🌸</div>
+            </div>
+
+            <!-- Reward Message -->
+            <div id="rewardMessage" style="display: none;" class="mb-6 animate-pulse">
+                <div class="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 text-white rounded-3xl px-8 py-6 shadow-2xl inline-block" style="transform: scale(1.1);">
+                    <div class="text-6xl mb-3">🎉 🏆 ✨</div>
+                    <h2 class="text-3xl font-bold mb-2">بدري ما بغينا</h2>
+                    <p class="text-lg opacity-90">وش مهامك لبكرة؟ 📝</p>
+                </div>
+            </div>
+
+            <div class="inline-block mb-4">
+                <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 text-white rounded-3xl px-8 py-4 shadow-2xl hover:scale-105 transition-transform border-4 border-white/30">
+                    <h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-3">
+                        <span>🎀</span>
+                         المهام اليومية
+                        <span>🎀</span>
+                    </h1>
+                    <div class="flex items-center justify-center gap-2 text-sm opacity-90">
+                        <span>📅</span>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="progressContainer" class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-purple-200">
+                <div class="flex justify-between mb-3">
+                    <span class="text-gray-900 font-semibold">التقدم اليومي</span>
+                    <span class="text-gray-600 font-bold" id="progressText">0 / 0</span>
+                </div>
+                <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 transition-all duration-500 relative" style="width: 0%">
+                        <div class="absolute inset-0 bg-white/30 animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="inputContainer" class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." class="flex-1 px-5 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all text-lg">
+                <select id="prioritySelect" class="px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all">
+                    <option value="low">أولوية منخفضة</option>
+                    <option value="medium">أولوية متوسطة</option>
+                    <option value="high">أولوية عالية</option>
+                </select>
+                <button id="addBtn" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105 shadow-lg">
+                    ➕ إضافة
+                </button>
+            </div>
+        </div>
+
+        <div id="tasksList" class="space-y-3"></div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let darkMode = true;
+
+        const taskInput = document.getElementById('taskInput');
+        const prioritySelect = document.getElementById('prioritySelect');
+        const addBtn = document.getElementById('addBtn');
+        const tasksList = document.getElementById('tasksList');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        const progressContainer = document.getElementById('progressContainer');
+        const inputContainer = document.getElementById('inputContainer');
+        const rewardMessage = document.getElementById('rewardMessage');
+        const currentDate = document.getElementById('currentDate');
+        const darkModeBtn = document.getElementById('darkModeBtn');
+
+        currentDate.textContent = new Date().toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        function applyDarkMode() {
+            if (darkMode) {
+                document.body.className = 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen transition-colors duration-300';
+                darkModeBtn.textContent = '🌙';
+                progressContainer.className = 'bg-gray-800/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-purple-700';
+                inputContainer.className = 'bg-gray-800/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-700';
+                taskInput.className = 'flex-1 px-5 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all text-lg';
+                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all';
+                
+                const progressLabels = progressContainer.querySelectorAll('span');
+                if (progressLabels[0]) progressLabels[0].className = 'text-gray-200 font-semibold';
+                if (progressLabels[1]) progressLabels[1].className = 'text-gray-400 font-bold';
+            } else {
+                document.body.className = 'bg-gradient-to-br from-pink-100 via-purple-100 to-pink-200 min-h-screen transition-colors duration-300';
+                darkModeBtn.textContent = '☀️';
+                progressContainer.className = 'bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-purple-200';
+                inputContainer.className = 'bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200';
+                taskInput.className = 'flex-1 px-5 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all text-lg';
+                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all';
+                
+                const progressLabels = progressContainer.querySelectorAll('span');
+                if (progressLabels[0]) progressLabels[0].className = 'text-gray-900 font-semibold';
+                if (progressLabels[1]) progressLabels[1].className = 'text-gray-600 font-bold';
+            }
+        }
+
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            localStorage.setItem('darkMode', darkMode);
+            applyDarkMode();
+            renderTasks();
+        }
+
+        darkModeBtn.addEventListener('click', toggleDarkMode);
+        applyDarkMode();
+
+        function playMeow() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('Audio not supported');
+            }
+        }
+
+        function showConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-20px';
+                confetti.style.width = '12px';
+                confetti.style.height = '12px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                confetti.style.animation = `fall ${2 + Math.random() * 2}s ease-in ${Math.random() * 2}s forwards`;
+                confetti.style.zIndex = '9999';
+                container.appendChild(confetti);
+            }
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function updateProgress() {
+            const completed = tasks.filter(t => t.completed).length;
+            const total = tasks.length;
+            const percent = total > 0 ? (completed / total) * 100 : 0;
+            
+            progressBar.style.width = percent + '%';
+            progressText.textContent = `${completed} / ${total}`;
+
+            if (total > 0 && completed === total) {
+                rewardMessage.style.display = 'block';
+                showConfetti();
+                setTimeout(() => rewardMessage.style.display = 'none', 5000);
+            }
+        }
+
+        function getPriorityColor(priority) {
+            if (priority === 'high') return 'from-pink-400 to-pink-600';
+            if (priority === 'medium') return 'from-purple-400 to-purple-600';
+            return 'from-blue-400 to-blue-600';
+        }
+
+        function renderTasks() {
+            const bgClass = darkMode ? 'bg-gray-800/90' : 'bg-white/90';
+            const textClass = darkMode ? 'text-gray-200' : 'text-gray-900';
+            const borderClass = darkMode ? 'border-purple-700' : 'border-purple-200';
+            const emptyTextClass = darkMode ? 'text-gray-400' : 'text-gray-600';
+            
+            if (tasks.length === 0) {
+                tasksList.innerHTML = `
+                    <div class="${bgClass} backdrop-blur-lg rounded-2xl p-12 text-center shadow-xl border ${borderClass}">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">⭐</div>
+                        <p class="${emptyTextClass} text-xl">لا توجد مهام بعد. ابدأ بإضافة مهمة جديدة!</p>
+                    </div>
+                `;
+                updateProgress();
+                return;
+            }
+
+            tasksList.innerHTML = tasks.map(task => `
+                <div class="${bgClass} backdrop-blur-lg rounded-2xl p-5 shadow-lg border ${borderClass} hover:scale-[1.02] transition-all duration-200">
+                    <div class="flex items-center gap-4">
+                        <button onclick="toggleTask(${task.id})" class="flex-shrink-0 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${task.completed ? 'bg-gradient-to-r from-green-500 to-emerald-500 border-green-500' : 'border-gray-300 hover:border-purple-500'}">
+                            ${task.completed ? '<span style="color: white; font-size: 1.2rem;">✓</span>' : ''}
+                        </button>
+                        <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gradient-to-r ${getPriorityColor(task.priority)}"></div>
+                        <span class="flex-1 text-lg ${task.completed ? 'line-through opacity-50' : ''} ${textClass}">${task.text}</span>
+                        <button onclick="deleteTask(${task.id})" class="flex-shrink-0 p-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white transition-all hover:scale-110">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateProgress();
+        }
+
+        function addTask() {
+            const text = taskInput.value.trim();
+            if (!text) return;
+
+            tasks.push({
+                id: Date.now(),
+                text: text,
+                completed: false,
+                priority: prioritySelect.value
+            });
+
+            taskInput.value = '';
+            prioritySelect.value = 'medium';
+            saveTasks();
+            renderTasks();
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task && !task.completed) {
+                playMeow();
+            }
+            task.completed = !task.completed;
+            saveTasks();
+            renderTasks();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+
+        addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        renderTasks();
+    </script>
+</body>
+</html>
