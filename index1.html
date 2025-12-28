@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> المهام الارقوازي</title>
+    <title>مهام الارقوازي V3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes fall {
@@ -27,10 +27,13 @@
         .animate-bounce { animation: bounce 2s infinite; }
         .animate-spin { animation: spin 3s linear infinite; }
         .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { transform: scale(1.05); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
     </style>
 </head>
 <body class="bg-gradient-to-br from-pink-100 via-purple-100 to-pink-200 min-h-screen transition-colors duration-300">
-    <!-- Stars -->
     <div style="position: fixed; top: 80px; left: 40px; font-size: 3rem; opacity: 0.3;" class="animate-pulse">⭐</div>
     <div style="position: fixed; top: 240px; left: 80px; font-size: 2.5rem; opacity: 0.25; animation-delay: 0.5s;" class="animate-pulse">✨</div>
     <div style="position: fixed; bottom: 160px; left: 64px; font-size: 2rem; opacity: 0.2; animation-delay: 1s;" class="animate-pulse">🌟</div>
@@ -39,16 +42,13 @@
     <div style="position: fixed; top: 320px; right: 128px; font-size: 2rem; opacity: 0.2; animation-delay: 0.8s;" class="animate-pulse">🌟</div>
     <div style="position: fixed; bottom: 80px; right: 40px; font-size: 4rem; opacity: 0.2; animation-delay: 1s;" class="animate-bounce">💖</div>
     <div style="position: fixed; top: 160px; left: 50%; font-size: 2.5rem; opacity: 0.2; animation-delay: 0.5s;" class="animate-bounce">🌸</div>
-
     <div id="confettiContainer"></div>
 
-    <div class="max-w-4xl mx-auto p-4 sm:p-8">
+    <div class="max-w-6xl mx-auto p-4 sm:p-8">
         <div class="text-center mb-8 relative">
-            <button id="darkModeBtn" class="absolute right-0 top-0 p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-transform shadow-lg">
-                ☀️
-            </button>
+            <button id="darkModeBtn" class="absolute right-0 top-0 p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:scale-110 transition-transform shadow-lg">☀️</button>
+            <div class="absolute left-0 top-0 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">V3 ✨   </div>
 
-            <!-- Hello Kitty -->
             <div class="mb-6 relative inline-block">
                 <div style="position: absolute; top: -8px; right: -8px; font-size: 2.5rem;" class="animate-spin">✨</div>
                 <div style="position: absolute; top: -8px; left: -8px; font-size: 2.5rem; animation-direction: reverse;" class="animate-spin">⭐</div>
@@ -78,26 +78,25 @@
                 <div style="position: absolute; bottom: -8px; left: -8px; font-size: 2.5rem; animation-delay: 0.5s;" class="animate-pulse">🌸</div>
             </div>
 
-            <!-- Reward Message -->
             <div id="rewardMessage" style="display: none;" class="mb-6 animate-pulse">
                 <div class="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 text-white rounded-3xl px-8 py-6 shadow-2xl inline-block" style="transform: scale(1.1);">
-                    <div class="text-6xl mb-3">🎉 🏆 ✨</div>
-                    <h2 class="text-3xl font-bold mb-2">بدري ما بغينا</h2>
-                    <p class="text-lg opacity-90">وش مهامك لبكرة؟ 📝</p>
+                    <div class="text-6xl mb-3">🎉 🏆 </div>
+                    <h2 class="text-3xl font-bold mb-2">كفو ياملكا </h2>
                 </div>
             </div>
 
             <div class="inline-block mb-4">
                 <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-600 text-white rounded-3xl px-8 py-4 shadow-2xl hover:scale-105 transition-transform border-4 border-white/30">
-                    <h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-3">
-                        <span>🎀</span>
-                         المهام اليومية
-                        <span>🎀</span>
-                    </h1>
-                    <div class="flex items-center justify-center gap-2 text-sm opacity-90">
-                        <span>📅</span>
-                        <span id="currentDate"></span>
-                    </div>
+                    <h1 class="text-4xl font-bold mb-2 flex items-center justify-center gap-3"><span>🎀</span> المهام اليومية <span>🎀</span></h1>
+                    <div class="flex items-center justify-center gap-2 text-sm opacity-90"><span>📅</span><span id="currentDate"></span></div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mb-8 overflow-x-auto">
+                <div class="inline-flex rounded-2xl bg-white/80 backdrop-blur-sm p-1 shadow-lg">
+                    <button id="todayTab" class="tab-btn active px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 text-white">اليوم 📋</button>
+                    <button id="calendarTab" class="tab-btn px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 text-white mx-1">الجدول الزمني 🗓️</button>
+                    <button id="historyTab" class="tab-btn px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-blue-500 to-green-500 text-white">سجل الإنجاز 📊</button>
                 </div>
             </div>
 
@@ -114,29 +113,65 @@
             </div>
         </div>
 
-        <div id="inputContainer" class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200">
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." class="flex-1 px-5 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all text-lg">
-                <select id="prioritySelect" class="px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all">
-                    <option value="low">أولوية منخفضة</option>
-                    <option value="medium">أولوية متوسطة</option>
-                    <option value="high">أولوية عالية</option>
-                </select>
-                <button id="addBtn" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105 shadow-lg">
-                    ➕ إضافة
-                </button>
+        <div id="todayPage" class="page active">
+            <div id="inputContainer" class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200">
+                <div class="flex flex-col gap-3">
+                    <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." class="flex-1 px-5 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all text-lg">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <select id="prioritySelect" class="px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all flex-1">
+                            <option value="low">أولوية منخفضة</option>
+                            <option value="medium" selected>أولوية متوسطة</option>
+                            <option value="high">أولوية عالية</option>
+                        </select>
+                        <select id="daySelect" class="px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all flex-1">
+                            <option value="today">اليوم</option>
+                            <option value="tomorrow">غداً</option>
+                            <option value="day3">بعد بكره</option>
+                            <option value="day4">اليوم الرابع</option>
+                            <option value="day5">اليوم الخامس</option>
+                        </select>
+                        <button id="addBtn" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-bold transition-all hover:scale-105 shadow-lg flex-1">➕ إضافة</button>
+                    </div>
+                </div>
             </div>
+            <div id="tasksList" class="space-y-3"></div>
         </div>
 
-        <div id="tasksList" class="space-y-3"></div>
+        <div id="calendarPage" class="page">
+            <div class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">🗓️ جدول المهام المستقبلية</h2>
+                <div id="dayCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></div>
+                <div class="text-center text-gray-600">
+                    <p class="mb-2">📌 يمكنك سحب المهام بين الأيام لتغيير موعدها</p>
+                    <p class="text-sm">اسحب المهمة إلى اليوم المطلوب لتغيير تاريخها</p>
+                </div>
+            </div>
+            <div id="calendarTasks" class="space-y-6"></div>
+        </div>
+
+        <div id="historyPage" class="page">
+            <div class="bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">📊 سجل الإنجاز</h2>
+                <div class="flex flex-wrap justify-center gap-4 mb-6">
+                    <button id="showAllHistory" class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold">الكل</button>
+                    <button id="showWeekHistory" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold">آخر أسبوع</button>
+                    <button id="showMonthHistory" class="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold">آخر شهر</button>
+                </div>
+                <div id="historyStats" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"></div>
+                <div id="historyList" class="space-y-4"></div>
+            </div>
+        </div>
     </div>
 
     <script>
         let tasks = [];
-        let darkMode = true;
-
+        let darkMode = false;
+        let currentPage = 'today';
+        let activeTimers = {};
+        
         const taskInput = document.getElementById('taskInput');
         const prioritySelect = document.getElementById('prioritySelect');
+        const daySelect = document.getElementById('daySelect');
         const addBtn = document.getElementById('addBtn');
         const tasksList = document.getElementById('tasksList');
         const progressBar = document.getElementById('progressBar');
@@ -146,9 +181,71 @@
         const rewardMessage = document.getElementById('rewardMessage');
         const currentDate = document.getElementById('currentDate');
         const darkModeBtn = document.getElementById('darkModeBtn');
-
-        currentDate.textContent = new Date().toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
+        const todayPage = document.getElementById('todayPage');
+        const calendarPage = document.getElementById('calendarPage');
+        const historyPage = document.getElementById('historyPage');
+        const todayTab = document.getElementById('todayTab');
+        const calendarTab = document.getElementById('calendarTab');
+        const historyTab = document.getElementById('historyTab');
+        const showAllHistory = document.getElementById('showAllHistory');
+        const showWeekHistory = document.getElementById('showWeekHistory');
+        const showMonthHistory = document.getElementById('showMonthHistory');
+        
+        currentDate.textContent = new Date().toLocaleDateString('ar-SA', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            if (hours > 0) return `${hours}س ${minutes}د`;
+            if (minutes > 0) return `${minutes}د ${secs}ث`;
+            return `${secs}ث`;
+        }
+        
+        function getRelativeDate(dateString) {
+            const date = new Date(dateString);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const weekAgo = new Date(today);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            date.setHours(0, 0, 0, 0);
+            if (date.getTime() === today.getTime()) return 'اليوم';
+            if (date.getTime() === yesterday.getTime()) return 'أمس';
+            if (date >= weekAgo) return 'آخر أسبوع';
+            return 'سابقاً';
+        }
+        
+        function formatDate(date) {
+            return date.toLocaleDateString('ar-SA', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+        }
+        
+        function getDateForDay(dayOffset) {
+            const date = new Date();
+            date.setDate(date.getDate() + dayOffset);
+            return formatDate(date);
+        }
+        
+        function loadTasks() {
+            const saved = localStorage.getItem('taskAppData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                tasks = data.tasks || [];
+                darkMode = data.darkMode || false;
+                applyDarkMode();
+            }
+        }
+        
+        function saveTasks() {
+            const data = { tasks, darkMode, lastUpdated: new Date().toISOString() };
+            localStorage.setItem('taskAppData', JSON.stringify(data));
+        }
+        
         function applyDarkMode() {
             if (darkMode) {
                 document.body.className = 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen transition-colors duration-300';
@@ -156,176 +253,407 @@
                 progressContainer.className = 'bg-gray-800/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-purple-700';
                 inputContainer.className = 'bg-gray-800/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-700';
                 taskInput.className = 'flex-1 px-5 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all text-lg';
-                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all';
-                
-                const progressLabels = progressContainer.querySelectorAll('span');
-                if (progressLabels[0]) progressLabels[0].className = 'text-gray-200 font-semibold';
-                if (progressLabels[1]) progressLabels[1].className = 'text-gray-400 font-bold';
+                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all flex-1';
+                daySelect.className = 'px-4 py-4 rounded-xl border-2 bg-gray-700 border-purple-500 text-white focus:border-purple-400 focus:outline-none transition-all flex-1';
+                const labels = progressContainer.querySelectorAll('span');
+                if (labels[0]) labels[0].className = 'text-gray-200 font-semibold';
+                if (labels[1]) labels[1].className = 'text-gray-400 font-bold';
             } else {
                 document.body.className = 'bg-gradient-to-br from-pink-100 via-purple-100 to-pink-200 min-h-screen transition-colors duration-300';
                 darkModeBtn.textContent = '☀️';
                 progressContainer.className = 'bg-white/90 backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-purple-200';
                 inputContainer.className = 'bg-white/90 backdrop-blur-lg rounded-2xl p-6 mb-6 shadow-xl border border-purple-200';
                 taskInput.className = 'flex-1 px-5 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all text-lg';
-                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all';
-                
-                const progressLabels = progressContainer.querySelectorAll('span');
-                if (progressLabels[0]) progressLabels[0].className = 'text-gray-900 font-semibold';
-                if (progressLabels[1]) progressLabels[1].className = 'text-gray-600 font-bold';
+                prioritySelect.className = 'px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all flex-1';
+                daySelect.className = 'px-4 py-4 rounded-xl border-2 bg-white border-purple-300 text-gray-900 focus:border-purple-500 focus:outline-none transition-all flex-1';
+                const labels = progressContainer.querySelectorAll('span');
+                if (labels[0]) labels[0].className = 'text-gray-900 font-semibold';
+                if (labels[1]) labels[1].className = 'text-gray-600 font-bold';
             }
+            renderTodayTasks();
+            renderCalendarTasks();
+            renderHistory();
         }
-
+        
         function toggleDarkMode() {
             darkMode = !darkMode;
-            localStorage.setItem('darkMode', darkMode);
+            saveTasks();
             applyDarkMode();
-            renderTasks();
         }
-
-        darkModeBtn.addEventListener('click', toggleDarkMode);
-        applyDarkMode();
-
+        
         function playMeow() {
             try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
-                oscillator.type = 'sine';
-                
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.3);
-            } catch (e) {
-                console.log('Audio not supported');
-            }
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.3);
+            } catch (e) {}
         }
-
+        
         function showConfetti() {
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-20px';
-                confetti.style.width = '12px';
-                confetti.style.height = '12px';
-                confetti.style.borderRadius = '50%';
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                confetti.style.animation = `fall ${2 + Math.random() * 2}s ease-in ${Math.random() * 2}s forwards`;
-                confetti.style.zIndex = '9999';
-                container.appendChild(confetti);
+                const c = document.createElement('div');
+                c.style.cssText = `position:fixed;left:${Math.random() * 100}%;top:-20px;width:12px;height:12px;border-radius:50%;background:hsl(${Math.random() * 360},70%,60%);animation:fall ${2 + Math.random() * 2}s ease-in ${Math.random() * 2}s forwards;z-index:9999`;
+                container.appendChild(c);
             }
             setTimeout(() => container.innerHTML = '', 5000);
         }
-
-        function saveTasks() {
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-
+        
         function updateProgress() {
-            const completed = tasks.filter(t => t.completed).length;
-            const total = tasks.length;
+            const today = new Date().toISOString().split('T')[0];
+            const todayTasks = tasks.filter(t => !t.completed && (t.date === today || t.day === 'today'));
+            const completed = tasks.filter(t => t.completed && t.completedDate && t.completedDate.startsWith(today)).length;
+            const total = todayTasks.length + completed;
             const percent = total > 0 ? (completed / total) * 100 : 0;
-            
             progressBar.style.width = percent + '%';
             progressText.textContent = `${completed} / ${total}`;
-
-            if (total > 0 && completed === total) {
+            if (total > 0 && completed === total && todayTasks.length === 0) {
                 rewardMessage.style.display = 'block';
                 showConfetti();
                 setTimeout(() => rewardMessage.style.display = 'none', 5000);
             }
         }
-
-        function getPriorityColor(priority) {
-            if (priority === 'high') return 'from-pink-400 to-pink-600';
-            if (priority === 'medium') return 'from-purple-400 to-purple-600';
+        
+        function getPriorityColor(p) {
+            if (p === 'high') return 'from-pink-400 to-pink-600';
+            if (p === 'medium') return 'from-purple-400 to-purple-600';
             return 'from-blue-400 to-blue-600';
         }
-
-        function renderTasks() {
-            const bgClass = darkMode ? 'bg-gray-800/90' : 'bg-white/90';
-            const textClass = darkMode ? 'text-gray-200' : 'text-gray-900';
-            const borderClass = darkMode ? 'border-purple-700' : 'border-purple-200';
-            const emptyTextClass = darkMode ? 'text-gray-400' : 'text-gray-600';
+        
+        function getPriorityText(p) {
+            if (p === 'high') return 'عالي';
+            if (p === 'medium') return 'متوسط';
+            return 'منخفض';
+        }
+        
+        function getDayName(d) {
+            const days = {'today':'اليوم','tomorrow':'غداً','day3':'بعد غد','day4':'اليوم الرابع','day5':'اليوم الخامس'};
+            return days[d] || d;
+        }
+        
+        function renderTodayTasks() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayTasks = tasks.filter(t => !t.completed && (t.date === today || t.day === 'today'));
+            const bg = darkMode ? 'bg-gray-800/90' : 'bg-white/90';
+            const txt = darkMode ? 'text-gray-200' : 'text-gray-900';
+            const bord = darkMode ? 'border-purple-700' : 'border-purple-200';
+            const empty = darkMode ? 'text-gray-400' : 'text-gray-600';
             
-            if (tasks.length === 0) {
-                tasksList.innerHTML = `
-                    <div class="${bgClass} backdrop-blur-lg rounded-2xl p-12 text-center shadow-xl border ${borderClass}">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">⭐</div>
-                        <p class="${emptyTextClass} text-xl">لا توجد مهام بعد. ابدأ بإضافة مهمة جديدة!</p>
-                    </div>
-                `;
+            if (todayTasks.length === 0) {
+                tasksList.innerHTML = `<div class="${bg} backdrop-blur-lg rounded-2xl p-12 text-center shadow-xl border ${bord}"><div style="font-size:4rem;margin-bottom:1rem;">⭐</div><p class="${empty} text-xl">لا توجد مهام اليوم. ابدأ بإضافة مهمة جديدة!</p></div>`;
                 updateProgress();
                 return;
             }
-
-            tasksList.innerHTML = tasks.map(task => `
-                <div class="${bgClass} backdrop-blur-lg rounded-2xl p-5 shadow-lg border ${borderClass} hover:scale-[1.02] transition-all duration-200">
-                    <div class="flex items-center gap-4">
-                        <button onclick="toggleTask(${task.id})" class="flex-shrink-0 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${task.completed ? 'bg-gradient-to-r from-green-500 to-emerald-500 border-green-500' : 'border-gray-300 hover:border-purple-500'}">
-                            ${task.completed ? '<span style="color: white; font-size: 1.2rem;">✓</span>' : ''}
-                        </button>
-                        <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gradient-to-r ${getPriorityColor(task.priority)}"></div>
-                        <span class="flex-1 text-lg ${task.completed ? 'line-through opacity-50' : ''} ${textClass}">${task.text}</span>
-                        <button onclick="deleteTask(${task.id})" class="flex-shrink-0 p-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white transition-all hover:scale-110">
-                            🗑️
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-
+            
+            tasksList.innerHTML = todayTasks.map(task => {
+                const timer = activeTimers[task.id] || {running:false, elapsed:task.timeSpent||0};
+                const display = formatTime(timer.elapsed);
+                const btn = timer.running ? 
+                    `<button onclick="stopTimer(${task.id})" class="px-3 py-1 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 text-white text-sm hover:opacity-80">⏸ إيقاف</button>` :
+                    `<button onclick="startTimer(${task.id})" class="px-3 py-1 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm hover:opacity-80">▶ بدء</button>`;
+                return `<div class="${bg} backdrop-blur-lg rounded-2xl p-5 shadow-lg border ${bord} hover:scale-[1.02] transition-all duration-200 task-item" data-id="${task.id}" draggable="true"><div class="flex flex-col gap-3"><div class="flex items-center gap-4"><button onclick="toggleTask(${task.id})" class="flex-shrink-0 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-purple-500"></button><div class="flex-shrink-0 w-2 h-2 rounded-full bg-gradient-to-r ${getPriorityColor(task.priority)}"></div><span class="flex-1 text-lg ${txt}">${task.text}</span><button onclick="deleteTask(${task.id})" class="flex-shrink-0 p-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white transition-all hover:scale-110">🗑️</button></div><div class="flex items-center justify-between gap-3 pr-12"><div class="flex items-center gap-2"><span class="text-sm ${darkMode?'text-gray-400':'text-gray-600'}">${getPriorityText(task.priority)}</span></div><div class="flex items-center gap-2"><span id="timer-${task.id}" class="text-lg font-mono ${darkMode?'text-purple-400':'text-purple-600'} font-bold">⏱ ${display}</span>${btn}</div></div></div></div>`;
+            }).join('');
             updateProgress();
         }
-
+        
+        function renderCalendarTasks() {
+            const bg = darkMode ? 'bg-gray-800/90' : 'bg-white/90';
+            const txt = darkMode ? 'text-gray-200' : 'text-gray-900';
+            const bord = darkMode ? 'border-purple-700' : 'border-purple-200';
+            const dayCards = document.getElementById('dayCards');
+            const calendarTasks = document.getElementById('calendarTasks');
+            const days = ['today','tomorrow','day3','day4','day5'];
+            const colors = ['from-pink-500 to-purple-500','from-purple-500 to-blue-500','from-blue-500 to-green-500','from-green-500 to-yellow-500','from-yellow-500 to-pink-500'];
+            
+            dayCards.innerHTML = days.map((day,i) => {
+                const dayTasks = tasks.filter(t => t.day === day);
+                const completed = dayTasks.filter(t => t.completed).length;
+                const total = dayTasks.length;
+                return `<div class="${bg} backdrop-blur-lg rounded-2xl p-4 shadow-lg border ${bord}"><div class="text-center mb-3"><div class="text-xl font-bold ${txt}">${getDayName(day)}</div><div class="text-sm ${darkMode?'text-gray-400':'text-gray-600'}">${getDateForDay(i)}</div></div><div class="mb-3"><div class="flex justify-between text-sm mb-1"><span class="${txt}">التقدم</span><span class="${darkMode?'text-gray-400':'text-gray-600'}">${completed}/${total}</span></div><div class="w-full h-2 bg-gray-300 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r ${colors[i]}" style="width:${total>0?(completed/total)*100:0}%"></div></div></div><div class="text-center"><span class="text-sm ${darkMode?'text-gray-400':'text-gray-600'}">${total} مهام</span></div></div>`;
+            }).join('');
+            
+            calendarTasks.innerHTML = '';
+            days.forEach((day,i) => {
+                const dayTasks = tasks.filter(t => t.day === day);
+                if (dayTasks.length === 0) return;
+                const sec = document.createElement('div');
+                sec.className = `${bg} backdrop-blur-lg rounded-2xl p-6 shadow-xl border ${bord}`;
+                sec.innerHTML = `<h3 class="text-xl font-bold mb-4 flex items-center gap-2 ${txt}"><span>${getDayName(day)}</span><span class="text-sm ${darkMode?'text-gray-400':'text-gray-600'}">(${getDateForDay(i)})</span></h3>`;
+                const list = document.createElement('div');
+                list.className = 'space-y-3';
+                dayTasks.forEach(task => {
+                    const el = document.createElement('div');
+                    el.className = `p-4 rounded-xl border ${bord} ${task.completed?'opacity-70':''} task-item`;
+                    el.setAttribute('data-id', task.id);
+                    el.setAttribute('draggable', 'true');
+                    el.setAttribute('data-day', day);
+                    el.innerHTML = `<div class="flex items-center gap-3"><button onclick="toggleTask(${task.id})" class="flex-shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${task.completed?'bg-gradient-to-r from-green-500 to-emerald-500 border-green-500':'border-gray-300 hover:border-purple-500'}">${task.completed?'<span style="color:white;font-size:1rem;">✓</span>':''}</button><div class="flex-shrink-0 w-2 h-2 rounded-full bg-gradient-to-r ${getPriorityColor(task.priority)}"></div><span class="flex-1 ${task.completed?'line-through':''} ${txt}">${task.text}</span><div class="flex items-center gap-2"><span class="text-xs px-2 py-1 rounded-full ${darkMode?'bg-gray-700 text-gray-300':'bg-gray-100 text-gray-700'}">${getPriorityText(task.priority)}</span><button onclick="moveTaskToToday(${task.id})" class="text-sm px-3 py-1 rounded-lg ${darkMode?'bg-purple-700 text-white':'bg-purple-100 text-purple-700'} hover:opacity-80 transition-all">➡️ اليوم</button><button onclick="deleteTask(${task.id})" class="p-2 rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white transition-all hover:scale-110">🗑️</button></div></div>`;
+                    list.appendChild(el);
+                });
+                sec.appendChild(list);
+                calendarTasks.appendChild(sec);
+            });
+            setupDragAndDrop();
+        }
+        
+        function renderHistory(filter = 'all') {
+            const bg = darkMode ? 'bg-gray-800/90' : 'bg-white/90';
+            const txt = darkMode ? 'text-gray-200' : 'text-gray-900';
+            const bord = darkMode ? 'border-purple-700' : 'border-purple-200';
+            const historyStats = document.getElementById('historyStats');
+            const historyList = document.getElementById('historyList');
+            const completed = tasks.filter(t => t.completed);
+            let filtered = completed;
+            const now = new Date();
+            
+            if (filter === 'week') {
+                const weekAgo = new Date(now);
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                filtered = completed.filter(t => (t.completedDate ? new Date(t.completedDate) : new Date()) >= weekAgo);
+            } else if (filter === 'month') {
+                const monthAgo = new Date(now);
+                monthAgo.setMonth(monthAgo.getMonth() - 1);
+                filtered = completed.filter(t => (t.completedDate ? new Date(t.completedDate) : new Date()) >= monthAgo);
+            }
+            
+            filtered.sort((a,b) => {
+                const dA = a.completedDate ? new Date(a.completedDate) : new Date(0);
+                const dB = b.completedDate ? new Date(b.completedDate) : new Date(0);
+                return dB - dA;
+            });
+            
+            const totalTime = completed.reduce((s,t) => s + (t.timeSpent||0), 0);
+            const weekAgo = new Date(now);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const weekCompleted = completed.filter(t => (t.completedDate ? new Date(t.completedDate) : new Date()) >= weekAgo);
+            const weekTime = weekCompleted.reduce((s,t) => s + (t.timeSpent||0), 0);
+            const monthAgo = new Date(now);
+            monthAgo.setMonth(monthAgo.getMonth() - 1);
+            const monthCompleted = completed.filter(t => (t.completedDate ? new Date(t.completedDate) : new Date()) >= monthAgo);
+            const monthTime = monthCompleted.reduce((s,t) => s + (t.timeSpent||0), 0);
+            
+            historyStats.innerHTML = `<div class="${bg} backdrop-blur-lg rounded-2xl p-4 shadow-lg border ${bord} text-center"><div class="text-3xl font-bold ${txt}">${completed.length}</div><div class="${darkMode?'text-gray-400':'text-gray-600'}">إجمالي المهام</div><div class="text-lg font-bold text-purple-500 mt-1">⏱ ${formatTime(totalTime)}</div></div><div class="${bg} backdrop-blur-lg rounded-2xl p-4 shadow-lg border ${bord} text-center"><div class="text-3xl font-bold ${txt}">${weekCompleted.length}</div><div class="${darkMode?'text-gray-400':'text-gray-600'}">آخر أسبوع</div><div class="text-lg font-bold text-blue-500 mt-1">⏱ ${formatTime(weekTime)}</div></div><div class="${bg} backdrop-blur-lg rounded-2xl p-4 shadow-lg border ${bord} text-center"><div class="text-3xl font-bold ${txt}">${monthCompleted.length}</div><div class="${darkMode?'text-gray-400':'text-gray-600'}">آخر شهر</div><div class="text-lg font-bold text-green-500 mt-1">⏱ ${formatTime(monthTime)}</div></div>`;
+            
+            if (filtered.length === 0) {
+                historyList.innerHTML = `<div class="${bg} backdrop-blur-lg rounded-2xl p-12 text-center shadow-xl border ${bord}"><div style="font-size:4rem;margin-bottom:1rem;">📊</div><p class="${darkMode?'text-gray-400':'text-gray-600'} text-xl">لا توجد مهام مكتملة بعد!</p><p class="${darkMode?'text-gray-500':'text-gray-500'} mt-2">اكمل بعض المهام لتراها هنا</p></div>`;
+                return;
+            }
+            
+            const grouped = {'اليوم':[],'أمس':[],'آخر أسبوع':[],'سابقاً':[]};
+            filtered.forEach(task => grouped[getRelativeDate(task.completedDate)].push(task));
+            
+            let html = '';
+            for (const [group,groupTasks] of Object.entries(grouped)) {
+                if (groupTasks.length === 0) continue;
+                const groupTime = groupTasks.reduce((s,t) => s + (t.timeSpent||0), 0);
+                html += `<div class="mb-6"><div class="flex items-center justify-between mb-3"><h3 class="text-xl font-bold ${txt}">${group}</h3><div class="flex items-center gap-3"><span class="${darkMode?'text-gray-400':'text-gray-600'}">${groupTasks.length} مهام</span><span class="text-purple-500 font-bold">⏱ ${formatTime(groupTime)}</span></div></div><div class="space-y-3">`;
+                groupTasks.forEach(task => {
+                    const dateStr = formatDate(task.completedDate ? new Date(task.completedDate) : new Date());
+                    const timeStr = task.timeSpent ? formatTime(task.timeSpent) : '0ث';
+                    html += `<div class="${bg} backdrop-blur-lg rounded-2xl p-5 shadow-lg border ${bord}"><div class="flex items-start gap-4"><div class="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-emerald-600 flex items-center justify-center text-white text-xl">✓</div><div class="flex-1"><div class="flex justify-between items-start mb-2"><span class="text-lg ${txt}">${task.text}</span><span class="text-sm ${darkMode?'text-gray-400':'text-gray-600'}">${dateStr}</span></div><div class="flex flex-wrap gap-2"><span class="text-xs px-2 py-1 rounded-full ${darkMode?'bg-gray-700 text-gray-300':'bg-gray-100 text-gray-700'}">${getPriorityText(task.priority)}</span><span class="text-xs px-2 py-1 rounded-full ${darkMode?'bg-purple-700 text-purple-300':'bg-purple-100 text-purple-700'}">${getDayName(task.originalDay||task.day)}</span><span class="text-xs px-2 py-1 rounded-full ${darkMode?'bg-blue-700 text-blue-300':'bg-blue-100 text-blue-700'} font-bold">⏱ ${timeStr}</span></div></div></div></div>`;
+                });
+                html += `</div></div>`;
+            }
+            historyList.innerHTML = html;
+        }
+        
         function addTask() {
             const text = taskInput.value.trim();
             if (!text) return;
-
+            const day = daySelect.value;
+            const today = new Date().toISOString().split('T')[0];
+            const date = day === 'today' ? today : getDateForFutureDay(day);
             tasks.push({
                 id: Date.now(),
                 text: text,
                 completed: false,
-                priority: prioritySelect.value
+                priority: prioritySelect.value,
+                day: day,
+                date: date,
+                createdAt: new Date().toISOString(),
+                timeSpent: 0
             });
-
             taskInput.value = '';
             prioritySelect.value = 'medium';
+            daySelect.value = 'today';
             saveTasks();
-            renderTasks();
+            renderTodayTasks();
+            renderCalendarTasks();
         }
-
+        
+        function getDateForFutureDay(day) {
+            const date = new Date();
+            const offsets = {'today':0,'tomorrow':1,'day3':2,'day4':3,'day5':4};
+            date.setDate(date.getDate() + (offsets[day]||0));
+            return date.toISOString().split('T')[0];
+        }
+        
         function toggleTask(id) {
             const task = tasks.find(t => t.id === id);
-            if (task && !task.completed) {
+            if (!task) return;
+            if (activeTimers[id]?.running) stopTimer(id);
+            if (!task.completed) {
+                task.completed = true;
+                task.completedDate = new Date().toISOString();
+                task.originalDay = task.day;
                 playMeow();
+                const el = document.querySelector(`[data-id="${id}"]`);
+                if (el) {
+                    el.style.transform = 'scale(0.8)';
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        saveTasks();
+                        renderTodayTasks();
+                        renderCalendarTasks();
+                        showConfetti();
+                    }, 300);
+                }
+            } else {
+                task.completed = false;
+                task.completedDate = null;
+                saveTasks();
+                renderTodayTasks();
+                renderCalendarTasks();
             }
-            task.completed = !task.completed;
-            saveTasks();
-            renderTasks();
+            if (currentPage === 'history') renderHistory('all');
         }
-
+        
+        function startTimer(id) {
+            const task = tasks.find(t => t.id === id);
+            if (!task) return;
+            Object.keys(activeTimers).forEach(timerId => {
+                if (activeTimers[timerId].running && timerId != id) stopTimer(parseInt(timerId));
+            });
+            if (!activeTimers[id]) {
+                activeTimers[id] = {running:true, elapsed:task.timeSpent||0, startTime:Date.now(), interval:null};
+            } else {
+                activeTimers[id].running = true;
+                activeTimers[id].startTime = Date.now();
+            }
+            activeTimers[id].interval = setInterval(() => {
+                const elapsed = activeTimers[id].elapsed + Math.floor((Date.now() - activeTimers[id].startTime) / 1000);
+                const el = document.getElementById(`timer-${id}`);
+                if (el) el.textContent = `⏱ ${formatTime(elapsed)}`;
+            }, 1000);
+            renderTodayTasks();
+        }
+        
+        function stopTimer(id) {
+            if (!activeTimers[id] || !activeTimers[id].running) return;
+            const additionalTime = Math.floor((Date.now() - activeTimers[id].startTime) / 1000);
+            activeTimers[id].elapsed += additionalTime;
+            activeTimers[id].running = false;
+            clearInterval(activeTimers[id].interval);
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.timeSpent = activeTimers[id].elapsed;
+                saveTasks();
+            }
+            renderTodayTasks();
+        }
+        
         function deleteTask(id) {
+            if (activeTimers[id]?.running) stopTimer(id);
             tasks = tasks.filter(t => t.id !== id);
             saveTasks();
-            renderTasks();
+            if (currentPage === 'today') renderTodayTasks();
+            else if (currentPage === 'calendar') renderCalendarTasks();
+            else if (currentPage === 'history') renderHistory('all');
         }
-
+        
+        function moveTaskToToday(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.day = 'today';
+                task.date = new Date().toISOString().split('T')[0];
+                saveTasks();
+                renderCalendarTasks();
+                renderTodayTasks();
+            }
+        }
+        
+        function setupDragAndDrop() {
+            document.querySelectorAll('.task-item').forEach(item => {
+                item.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', e.target.dataset.id));
+            });
+            document.querySelectorAll('#calendarPage > div > div').forEach(section => {
+                section.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    section.style.opacity = '0.8';
+                });
+                section.addEventListener('dragleave', () => section.style.opacity = '1');
+                section.addEventListener('drop', e => {
+                    e.preventDefault();
+                    section.style.opacity = '1';
+                    const taskId = e.dataTransfer.getData('text/plain');
+                    const dayHeader = section.querySelector('h3');
+                    if (dayHeader) {
+                        const dayText = dayHeader.textContent;
+                        const dayMap = {'اليوم':'today','غداً':'tomorrow','بعد غد':'day3','اليوم الرابع':'day4','اليوم الخامس':'day5'};
+                        let targetDay = 'today';
+                        for (const [key,value] of Object.entries(dayMap)) {
+                            if (dayText.includes(key)) {
+                                targetDay = value;
+                                break;
+                            }
+                        }
+                        const task = tasks.find(t => t.id == taskId);
+                        if (task) {
+                            task.day = targetDay;
+                            task.date = getDateForFutureDay(targetDay);
+                            saveTasks();
+                            renderCalendarTasks();
+                            renderTodayTasks();
+                        }
+                    }
+                });
+            });
+        }
+        
+        function switchPage(page) {
+            currentPage = page;
+            todayPage.classList.remove('active');
+            calendarPage.classList.remove('active');
+            historyPage.classList.remove('active');
+            todayTab.classList.remove('active');
+            calendarTab.classList.remove('active');
+            historyTab.classList.remove('active');
+            if (page === 'today') {
+                todayPage.classList.add('active');
+                todayTab.classList.add('active');
+            } else if (page === 'calendar') {
+                calendarPage.classList.add('active');
+                calendarTab.classList.add('active');
+                renderCalendarTasks();
+            } else if (page === 'history') {
+                historyPage.classList.add('active');
+                historyTab.classList.add('active');
+                renderHistory('all');
+            }
+        }
+        
+        loadTasks();
         addBtn.addEventListener('click', addTask);
-        taskInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addTask();
-        });
-
-        renderTasks();
+        taskInput.addEventListener('keypress', e => {if (e.key === 'Enter') addTask();});
+        darkModeBtn.addEventListener('click', toggleDarkMode);
+        todayTab.addEventListener('click', () => switchPage('today'));
+        calendarTab.addEventListener('click', () => switchPage('calendar'));
+        historyTab.addEventListener('click', () => switchPage('history'));
+        showAllHistory.addEventListener('click', () => renderHistory('all'));
+        showWeekHistory.addEventListener('click', () => renderHistory('week'));
+        showMonthHistory.addEventListener('click', () => renderHistory('month'));
+        renderTodayTasks();
+        switchPage('today');
     </script>
 </body>
 </html>
